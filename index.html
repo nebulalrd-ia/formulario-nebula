@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesquisa: Criação de Conteúdo Digital - Nebula</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2E86AB 0%, #A23B72 100%);
+            color: white;
+            padding: 40px 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.2em;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-content {
+            padding: 40px 30px;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            padding: 25px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 5px solid #2E86AB;
+        }
+
+        .section h2 {
+            color: #2E86AB;
+            font-size: 1.4em;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .section h2::before {
+            content: "📊";
+            margin-right: 10px;
+            font-size: 1.2em;
+        }
+
+        .question {
+            margin-bottom: 25px;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .question-label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+            font-size: 1.05em;
+            line-height: 1.4;
+        }
+
+        .question-subtitle {
+            font-size: 0.9em;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 12px 15px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .option:hover {
+            background: #e9ecef;
+            border-color: #2E86AB;
+        }
+
+        .option input[type="radio"],
+        .option input[type="checkbox"] {
+            margin-right: 12px;
+            transform: scale(1.2);
+        }
+
+        .text-input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e9ecef;
+            border-radius: 6px;
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+        }
+
+        .text-input:focus {
+            outline: none;
+            border-color: #2E86AB;
+            box-shadow: 0 0 0 3px rgba(46, 134, 171, 0.1);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 15px;
+        }
+
+        .highlight-question {
+            border: 2px solid #F18F01;
+            background: linear-gradient(135deg, #FFF8E1 0%, #FFECB3 100%);
+        }
+
+        .highlight-question .question-label {
+            color: #E65100;
+        }
+
+        .pain-point {
+            background: linear-gradient(135deg, #FFEBEE 0%, #FCE4EC 100%);
+            border-left-color: #E91E63;
+        }
+
+        .pain-point h2 {
+            color: #C2185B;
+        }
+
+        .pain-point h2::before {
+            content: "⚡";
+        }
+
+        .future-section {
+            background: linear-gradient(135deg, #E8F5E8 0%, #C8E6C9 100%);
+            border-left-color: #4CAF50;
+        }
+
+        .future-section h2 {
+            color: #2E7D32;
+        }
+
+        .future-section h2::before {
+            content: "🚀";
+        }
+
+        .submit-section {
+            text-align: center;
+            padding: 40px 30px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #2E86AB 0%, #A23B72 100%);
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            box-shadow: 0 10px 20px rgba(46, 134, 171, 0.3);
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 30px rgba(46, 134, 171, 0.4);
+        }
+
+        .progress-bar {
+            height: 4px;
+            background: #e9ecef;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #2E86AB, #A23B72);
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 10px;
+            }
+            
+            .header {
+                padding: 30px 20px;
+            }
+            
+            .header h1 {
+                font-size: 1.8em;
+            }
+            
+            .form-content {
+                padding: 30px 20px;
+            }
+            
+            .section {
+                padding: 20px 15px;
+            }
+            
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <h1>🎯 Pesquisa: Criação de Conteúdo Digital</h1>
+            <p>Estamos desenvolvendo uma solução inovadora e sua experiência é fundamental para entendermos as necessidades reais do mercado brasileiro</p>
+        </div>
+
+        <form class="form-content" id="contentForm" action="https://formspree.io/f/xpznqnzq" method="POST">
+            <!-- SEÇÃO 1: PERFIL DA EMPRESA -->
+            <div class="section">
+                <h2>Perfil da Empresa</h2>
+                
+                <div class="question">
+                    <div class="question-label">1. Qual o segmento principal da sua empresa?</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="segmento" value="ecommerce">
+                            E-commerce/Varejo
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="segmento" value="cpg">
+                            Bens de Consumo (CPG)
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="segmento" value="cosmeticos">
+                            Cosméticos/Beleza
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="segmento" value="alimenticio">
+                            Alimentício/Bebidas
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="segmento" value="tecnologia">
+                            Tecnologia/Software
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="segmento" value="financeiro">
+                            Serviços Financeiros
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="segmento" value="educacao">
+                            Educação
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="segmento" value="outro">
+                            Outro: <input type="text" class="text-input" style="margin-left: 10px; width: 200px;" name="segmento_outro">
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-label">2. Porte da empresa:</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="porte" value="startup">
+                            Startup/Pequena (até 50 funcionários)
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="porte" value="media">
+                            Média (51-500 funcionários)
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="porte" value="grande">
+                            Grande (500+ funcionários)
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="porte" value="multinacional">
+                            Multinacional
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEÇÃO 2: VOLUME E FREQUÊNCIA -->
+            <div class="section">
+                <h2>Volume e Frequência de Conteúdo</h2>
+                
+                <div class="question">
+                    <div class="question-label">3. Em média, quantas peças de conteúdo visual vocês criam por mês?</div>
+                    <div class="grid-2">
+                        <div>
+                            <label>Fotos de produto:</label>
+                            <input type="number" class="text-input" name="fotos_mes" placeholder="peças/mês">
+                        </div>
+                        <div>
+                            <label>Vídeos de produto:</label>
+                            <input type="number" class="text-input" name="videos_mes" placeholder="peças/mês">
+                        </div>
+                        <div>
+                            <label>Artes para redes sociais:</label>
+                            <input type="number" class="text-input" name="artes_mes" placeholder="peças/mês">
+                        </div>
+                        <div>
+                            <label>Materiais de marketing:</label>
+                            <input type="number" class="text-input" name="marketing_mes" placeholder="peças/mês">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEÇÃO 3: CUSTOS ATUAIS (HIGHLIGHT) -->
+            <div class="section highlight-question">
+                <h2>💰 Custos Atuais - A Realidade dos Números</h2>
+                
+                <div class="question">
+                    <div class="question-label">4. Quanto vocês gastam ANUALMENTE com criação de conteúdo visual?</div>
+                    <div class="question-subtitle">Inclua: agências, freelancers, produtoras, equipe interna, equipamentos</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="gasto_anual" value="ate_50k">
+                            Até R$ 50.000
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="gasto_anual" value="50k_150k">
+                            R$ 50.001 - R$ 150.000
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="gasto_anual" value="150k_300k">
+                            R$ 150.001 - R$ 300.000
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="gasto_anual" value="300k_500k">
+                            R$ 300.001 - R$ 500.000
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="gasto_anual" value="500k_1m">
+                            R$ 500.001 - R$ 1.000.000
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="gasto_anual" value="mais_1m">
+                            Mais de R$ 1.000.000
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="gasto_anual" value="nao_sei">
+                            Não tenho essa informação consolidada
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-label">5. Se tivessem que estimar, quanto custa em média:</div>
+                    <div class="grid-3">
+                        <div>
+                            <label>1 foto de produto profissional:</label>
+                            <input type="text" class="text-input" name="custo_foto" placeholder="R$ ___">
+                        </div>
+                        <div>
+                            <label>1 vídeo de produto (30-60s):</label>
+                            <input type="text" class="text-input" name="custo_video" placeholder="R$ ___">
+                        </div>
+                        <div>
+                            <label>1 arte para redes sociais:</label>
+                            <input type="text" class="text-input" name="custo_arte" placeholder="R$ ___">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEÇÃO 4: TEMPO E PROCESSO (PAIN POINTS) -->
+            <div class="section pain-point">
+                <h2>Tempo e Processo - As Dores Reais</h2>
+                
+                <div class="question">
+                    <div class="question-label">6. Quanto tempo leva, em média, desde o briefing até a entrega final?</div>
+                    <div class="grid-2">
+                        <div>
+                            <label>Foto de produto:</label>
+                            <input type="number" class="text-input" name="tempo_foto" placeholder="dias">
+                        </div>
+                        <div>
+                            <label>Vídeo de produto:</label>
+                            <input type="number" class="text-input" name="tempo_video" placeholder="dias">
+                        </div>
+                        <div>
+                            <label>Arte para redes sociais:</label>
+                            <input type="number" class="text-input" name="tempo_arte" placeholder="dias">
+                        </div>
+                        <div>
+                            <label>Campanha completa:</label>
+                            <input type="number" class="text-input" name="tempo_campanha" placeholder="dias">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-label">7. Qual o maior gargalo no processo atual?</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="gargalo" value="demora_producao">
+                            Demora na criação/produção
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="gargalo" value="muitas_revisoes">
+                            Muitas revisões necessárias
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="gargalo" value="custo_elevado">
+                            Custo elevado
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="gargalo" value="falta_consistencia">
+                            Falta de consistência entre peças
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="gargalo" value="aprovacao_interna">
+                            Dificuldade de aprovar internamente
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="gargalo" value="agenda_fornecedores">
+                            Agenda lotada de fornecedores
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEÇÃO 5: IA E INOVAÇÃO -->
+            <div class="section">
+                <h2>🤖 IA e Inovação</h2>
+                
+                <div class="question">
+                    <div class="question-label">8. Já tentaram usar IA (Inteligência Artificial) para criar conteúdo?</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="usa_ia" value="sim_regular">
+                            Sim, usamos regularmente
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="usa_ia" value="sim_testamos">
+                            Sim, testamos mas não adotamos
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="usa_ia" value="nao_interesse">
+                            Não, mas temos interesse
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="usa_ia" value="nao_necessidade">
+                            Não, e não vemos necessidade
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="usa_ia" value="nao_conhecemos">
+                            Não conhecemos as opções disponíveis
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-label">9. Qual seria sua maior preocupação ao adotar IA para criação de conteúdo?</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="checkbox" name="preocupacoes" value="identidade_marca">
+                            Perder identidade/personalidade da marca
+                        </label>
+                        <label class="option">
+                            <input type="checkbox" name="preocupacoes" value="qualidade_inferior">
+                            Qualidade inferior ao trabalho humano
+                        </label>
+                        <label class="option">
+                            <input type="checkbox" name="preocupacoes" value="dependencia_tech">
+                            Dependência tecnológica
+                        </label>
+                        <label class="option">
+                            <input type="checkbox" name="preocupacoes" value="resistencia_equipe">
+                            Resistência da equipe interna
+                        </label>
+                        <label class="option">
+                            <input type="checkbox" name="preocupacoes" value="problemas_legais">
+                            Problemas legais/direitos autorais
+                        </label>
+                        <label class="option">
+                            <input type="checkbox" name="preocupacoes" value="custo_implementacao">
+                            Custo de implementação
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEÇÃO 6: CENÁRIO FUTURO -->
+            <div class="section future-section">
+                <h2>Cenário Futuro - O Que Você Pagaria?</h2>
+                
+                <div class="question highlight-question">
+                    <div class="question-label">10. Se existisse uma plataforma que pudesse:</div>
+                    <div class="question-subtitle">
+                        • Gerar 300 imagens de produto por mês<br>
+                        • Criar 40 vídeos de produto (30s cada)<br>
+                        • Produzir artes para redes sociais ilimitadas<br>
+                        • Manter total consistência da sua marca<br>
+                        • Com aprovação e controle empresarial
+                    </div>
+                    <div class="question-label" style="margin-top: 15px;"><strong>Quanto vocês estariam dispostos a investir mensalmente?</strong></div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="valor_plataforma" value="2k-5k">
+                            R$ 2.000 - R$ 5.000
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="valor_plataforma" value="5k-10k">
+                            R$ 5.001 - R$ 10.000
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="valor_plataforma" value="10k-20k">
+                            R$ 10.001 - R$ 20.000
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="valor_plataforma" value="mais_20k">
+                            Mais de R$ 20.000
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="valor_plataforma" value="precisa_demo">
+                            Precisaria ver uma demonstração primeiro
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-label">11. E se essa plataforma incluísse avatares corporativos (porta-vozes digitais) da sua marca para vídeos?</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="avatar_interesse" value="50_mais">
+                            Pagaria 50% a mais pelo add-on
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="avatar_interesse" value="100_mais">
+                            Pagaria 100% a mais pelo add-on
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="avatar_interesse" value="nao_interesse">
+                            Não tenho interesse em avatares
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="avatar_interesse" value="depende_qualidade">
+                            Dependeria da qualidade/realismo
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="avatar_interesse" value="testar_primeiro">
+                            Precisaria testar primeiro
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEÇÃO 7: VALIDAÇÃO FINAL -->
+            <div class="section">
+                <h2>🎯 Validação Final</h2>
+                
+                <div class="question">
+                    <div class="question-label">12. Depois de responder este questionário, como você classifica a urgência de otimizar a criação de conteúdo na sua empresa?</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="urgencia" value="extremamente_urgente">
+                            🔥 Extremamente urgente
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="urgencia" value="muito_importante">
+                            ⚡ Muito importante
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="urgencia" value="moderadamente_importante">
+                            📊 Moderadamente importante
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="urgencia" value="pouco_importante">
+                            📝 Pouco importante
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="urgencia" value="nao_prioridade">
+                            ⏰ Não é prioridade agora
+                        </label>
+                    </div>
+                </div>
+
+                <div class="question">
+                    <div class="question-label">13. Gostaria de ser contactado quando tivermos uma solução disponível?</div>
+                    <div class="options">
+                        <label class="option">
+                            <input type="radio" name="contato_interesse" value="sim_demo">
+                            ✅ Sim, gostaria de ver uma demo
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="contato_interesse" value="sim_email">
+                            📧 Sim, mas apenas informações por email
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="contato_interesse" value="talvez">
+                            🤔 Talvez, dependendo da proposta
+                        </label>
+                        <label class="option">
+                            <input type="radio" name="contato_interesse" value="nao_interesse">
+                            ❌ Não tenho interesse no momento
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- SEÇÃO 8: DADOS PARA CONTATO -->
+            <div class="section">
+                <h2>📞 Dados para Contato</h2>
+                
+                <div class="grid-2">
+                    <div class="question">
+                        <div class="question-label">Nome:</div>
+                        <input type="text" class="text-input" name="nome" placeholder="Seu nome completo" required>
+                    </div>
+                    <div class="question">
+                        <div class="question-label">Cargo:</div>
+                        <input type="text" class="text-input" name="cargo" placeholder="Seu cargo na empresa">
+                    </div>
+                    <div class="question">
+                        <div class="question-label">Email:</div>
+                        <input type="email" class="text-input" name="email" placeholder="seu@email.com" required>
+                    </div>
+                    <div class="question">
+                        <div class="question-label">WhatsApp:</div>
+                        <input type="tel" class="text-input" name="whatsapp" placeholder="(11) 99999-9999">
+                    </div>
+                </div>
+                
+                <div class="question">
+                    <div class="question-label">Empresa:</div>
+                    <input type="text" class="text-input" name="empresa" placeholder="Nome da sua empresa" required>
+                </div>
+
+                <div class="question">
+                    <div class="question-label">Comentários adicionais ou necessidades específicas:</div>
+                    <textarea class="text-input" name="comentarios" rows="4" placeholder="Conte-nos mais sobre suas necessidades específicas ou desafios únicos..."></textarea>
+                </div>
+            </div>
+
+            <div class="submit-section">
+                <button type="submit" class="submit-btn">🚀 Enviar Pesquisa</button>
+                <p style="margin-top: 20px; color: #666; font-size: 0.9em;">
+                    <em>Obrigado pelo seu tempo! Suas respostas são fundamentais para desenvolvermos uma solução que realmente atenda às necessidades do mercado brasileiro.</em>
+                </p>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        // Progress bar
+        function updateProgress() {
+            const form = document.getElementById('contentForm');
+            const inputs = form.querySelectorAll('input[type="radio"]:checked, input[type="checkbox"]:checked, input[type="text"]:not([value=""]), input[type="email"]:not([value=""]), input[type="tel"]:not([value=""]), input[type="number"]:not([value=""]), textarea:not([value=""])');
+            const totalQuestions = 13;
+            const progress = Math.min((inputs.length / totalQuestions) * 100, 100);
+            document.getElementById('progressFill').style.width = progress + '%';
+        }
+
+        // Add event listeners
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('contentForm');
+            const inputs = form.querySelectorAll('input, textarea, select');
+            
+            inputs.forEach(input => {
+                input.addEventListener('change', updateProgress);
+                input.addEventListener('input', updateProgress);
+            });
+
+            // Form submission success message
+            form.addEventListener('submit', function(e) {
+                // Let the form submit naturally to Formspree
+                setTimeout(() => {
+                    alert('✅ Obrigado! Sua pesquisa foi enviada com sucesso. Entraremos em contato em breve!');
+                }, 100);
+            });
+        });
+
+        // Click handling for options
+        document.querySelectorAll('.option').forEach(option => {
+            option.addEventListener('click', function(e) {
+                const input = this.querySelector('input');
+                if (input && input.type === 'radio' && e.target !== input) {
+                    input.checked = true;
+                    updateProgress();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
