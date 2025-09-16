@@ -558,33 +558,26 @@
             <!-- SEÇÃO 4: DADOS PARA CONTATO -->
             <div class="section">
                 <h2>📞 Dados para Contato</h2>
+                <p style="color: #666; font-style: italic; margin-bottom: 20px; text-align: center;">
+                    💡 <strong>Campos não obrigatórios</strong> - Você pode responder anonimamente se preferir
+                </p>
                 
                 <div class="grid-2">
                     <div class="question">
                         <div class="question-label">10. Nome completo:</div>
-                        <input type="text" class="text-input" name="nome" placeholder="Seu nome completo" required>
+                        <div class="question-subtitle">(campo não obrigatório)</div>
+                        <input type="text" class="text-input" name="nome" placeholder="Seu nome completo">
                     </div>
                     <div class="question">
-                        <div class="question-label">11. Cargo na empresa:</div>
-                        <input type="text" class="text-input" name="cargo" placeholder="Seu cargo na empresa">
-                    </div>
-                    <div class="question">
-                        <div class="question-label">12. Empresa:</div>
-                        <input type="text" class="text-input" name="empresa" placeholder="Nome da sua empresa" required>
-                    </div>
-                    <div class="question">
-                        <div class="question-label">13. Email:</div>
-                        <input type="email" class="text-input" name="email" placeholder="seu@email.com" required>
+                        <div class="question-label">11. Empresa:</div>
+                        <div class="question-subtitle">(campo não obrigatório)</div>
+                        <input type="text" class="text-input" name="empresa" placeholder="Nome da sua empresa">
                     </div>
                 </div>
                 
                 <div class="question">
-                    <div class="question-label">14. WhatsApp:</div>
-                    <input type="tel" class="text-input" name="whatsapp" placeholder="(11) 99999-9999">
-                </div>
-                
-                <div class="question">
-                    <div class="question-label">15. Comentários adicionais:</div>
+                    <div class="question-label">12. Comentários adicionais:</div>
+                    <div class="question-subtitle">(campo não obrigatório)</div>
                     <textarea class="text-input" name="comentarios" rows="4" placeholder="Conte-nos mais sobre suas necessidades específicas..."></textarea>
                 </div>
             </div>
@@ -603,7 +596,7 @@
         function updateProgress() {
             const form = document.getElementById('contentForm');
             const inputs = form.querySelectorAll('input[type="radio"]:checked, input[type="checkbox"]:checked, input[type="text"]:not([value=""]), input[type="email"]:not([value=""]), input[type="tel"]:not([value=""]), textarea:not([value=""])');
-            const totalQuestions = 15;
+            const totalQuestions = 12;
             const progress = Math.min((inputs.length / totalQuestions) * 100, 100);
             document.getElementById('progressFill').style.width = progress + '%';
         }
@@ -628,9 +621,6 @@ Nova resposta da pesquisa Nebula:
 
 Nome: ${data.nome || 'Não informado'}
 Empresa: ${data.empresa || 'Não informado'}
-Email: ${data.email || 'Não informado'}
-Cargo: ${data.cargo || 'Não informado'}
-WhatsApp: ${data.whatsapp || 'Não informado'}
 
 Segmento: ${data.segmento || 'Não informado'}
 Porte: ${data.porte || 'Não informado'}
